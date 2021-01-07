@@ -21,6 +21,5 @@ jobs:
           username: saddambilalov
           password: ${{ secrets.SECRET_KEY }}
           repository: saddambilalov/apache-ranger
-          tags: $(date +%s)
-          tag_with_sha: true
+          tag_with_ref: true
           path: rokku-dev-apache-ranger
