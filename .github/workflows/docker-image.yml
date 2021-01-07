@@ -13,8 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: |
-          VERSION=$(date +%s)
-          docker login -u saddambilalov -p ${{ secrets.SECRET_KEY }}
-          docker build . --file ./rokku-dev-apache-ranger/Dockerfile --tag saddambilalov/apache-ranger:${VERSION}
-          docker push saddambilalov/apache-ranger:${VERSION}
+      - name: Check out the repo
+      - uses: actions/checkout@v2
+        
+      - name: Build and push docker image
+        uses: docker/build-push-action@v1
+        with:
+          username: saddambilalov
+          password: ${{ secrets.SECRET_KEY }}
+          repository: saddambilalov/apache-ranger
+          tags: $(date +%s)
+          tag_with_sha: true
+          path: rokku-dev-apache-ranger
